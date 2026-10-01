@@ -1,0 +1,9 @@
+# Everything needed to retrain, test and serve. Python 3.11+.
+-r requirements-serve.txt
+matplotlib==3.10.8
+shap==0.52.0
+pytest==9.1.1
+httpx==0.28.1
+# torch is only needed to RETRAIN the GRU / autoencoder (not to serve or view results).
+# CPU-only wheel (small): pip install torch==2.14.0 --index-url https://download.pytorch.org/whl/cpu
+torch==2.14.0

@@ -1,0 +1,501 @@
+{
+  "protocol": {
+    "split": "80/20 by ENGINE on the 100 C-MAPSS FD001 training engines; official 100-engine test set used once for final scoring; test truth = official RUL_FD001.txt (uncapped).",
+    "rul_cap": 125,
+    "window": 30,
+    "healthy_cycles": 50,
+    "seed": 42,
+    "train_engines": 80,
+    "val_engines": 20,
+    "test_engines": 100
+  },
+  "rul": {
+    "Ridge (baseline)": {
+      "val_rmse": 17.354847075379723,
+      "test_rmse_last": 22.460880323487434,
+      "test_mae_last": 17.829397593753846,
+      "test_nasa_last": 1552.329232225229,
+      "test_rmse_all_rows": 18.435155339576323
+    },
+    "LightGBM": {
+      "val_rmse": 14.905877173900302,
+      "best_iteration": 153,
+      "test_rmse_last": 18.799056997617345,
+      "test_mae_last": 13.91898456288877,
+      "test_nasa_last": 675.2667346216234,
+      "test_rmse_all_rows": 16.070769175311234
+    },
+    "XGBoost": {
+      "val_rmse": 14.838487424333284,
+      "best_iteration": 134,
+      "test_rmse_last": 18.137648977213857,
+      "test_mae_last": 13.397597484588623,
+      "test_nasa_last": 593.0862617287034,
+      "test_rmse_all_rows": 15.797453505795186
+    },
+    "GRU (30-cycle window)": {
+      "val_rmse": 11.204538770608206,
+      "epochs_run": 25,
+      "test_rmse_last": 14.777094919405592,
+      "test_mae_last": 11.0252361369133,
+      "test_nasa_last": 400.7975658341452,
+      "test_rmse_all_rows": 12.457898737581441
+    },
+    "Blend (LightGBM + GRU)": {
+      "val_rmse": null,
+      "test_rmse_last": 15.13767633439022,
+      "test_mae_last": 11.067821990619992,
+      "test_nasa_last": 352.8912078734524,
+      "test_rmse_all_rows": 12.859105947375083
+    },
+    "_oof_rmse_lightgbm": 16.446714962607643
+  },
+  "anomaly": {
+    "iforest": {
+      "val_engines_alerted_pct": 100.0,
+      "val_median_lead_cycles": 54.5,
+      "val_false_alarms_in_healthy_phase": 0,
+      "test_auc_vs_rul_le_30": 0.9744
+    },
+    "autoencoder": {
+      "val_engines_alerted_pct": 40.0,
+      "val_median_lead_cycles": 32.5,
+      "val_false_alarms_in_healthy_phase": 0,
+      "test_auc_vs_rul_le_30": 0.7994666666666668
+    }
+  },
+  "failure_fd001": {
+    "horizon_cycles": 30,
+    "positive_rate_train": 0.14974941126743554,
+    "val_pr_auc_by_strategy": {
+      "Logistic Regression (baseline, balanced)": 0.9536541866702086,
+      "XGBoost (no imbalance handling)": 0.9599344774452184,
+      "XGBoost (class weights)": 0.9582236868003751,
+      "XGBoost (random oversampling)": 0.9570198233054568
+    },
+    "selected_model": "XGBoost (no imbalance handling)",
+    "cost_optimal_threshold": 0.080870121717453,
+    "test_last_cycle_cost_optimal": {
+      "n": 100,
+      "positives": 25,
+      "threshold": 0.080870121717453,
+      "precision": 0.7419354838709677,
+      "recall": 0.92,
+      "f1": 0.8214285714285714,
+      "tp": 23,
+      "fp": 8,
+      "fn": 2,
+      "tn": 67,
+      "cost": 140000.0,
+      "pr_auc": 0.9553846675197508,
+      "roc_auc": 0.984
+    },
+    "test_last_cycle_default_0_5": {
+      "n": 100,
+      "positives": 25,
+      "threshold": 0.5,
+      "precision": 0.9473684210526315,
+      "recall": 0.72,
+      "f1": 0.8181818181818182,
+      "tp": 18,
+      "fp": 1,
+      "fn": 7,
+      "tn": 74,
+      "cost": 355000.0,
+      "pr_auc": 0.9553846675197508,
+      "roc_auc": 0.984
+    },
+    "test_all_rows_cost_optimal": {
+      "n": 13096,
+      "positives": 332,
+      "threshold": 0.080870121717453,
+      "precision": 0.4396423248882265,
+      "recall": 0.8885542168674698,
+      "f1": 0.5882352941176471,
+      "tp": 295,
+      "fp": 376,
+      "fn": 37,
+      "tn": 12388,
+      "cost": 3730000.0,
+      "pr_auc": 0.7942738580913578,
+      "roc_auc": 0.9891659241163966
+    },
+    "val_cost_curve": [
+      [
+        0.02,
+        2970000.0
+      ],
+      [
+        0.04,
+        2505000.0
+      ],
+      [
+        0.06,
+        2265000.0
+      ],
+      [
+        0.08,
+        2235000.0
+      ],
+      [
+        0.1,
+        2375000.0
+      ],
+      [
+        0.12000000000000001,
+        2445000.0
+      ],
+      [
+        0.13999999999999999,
+        2490000.0
+      ],
+      [
+        0.16,
+        2440000.0
+      ],
+      [
+        0.18,
+        2485000.0
+      ],
+      [
+        0.19999999999999998,
+        2490000.0
+      ],
+      [
+        0.22,
+        2645000.0
+      ],
+      [
+        0.24,
+        2765000.0
+      ],
+      [
+        0.26,
+        3140000.0
+      ],
+      [
+        0.28,
+        3335000.0
+      ],
+      [
+        0.30000000000000004,
+        3385000.0
+      ],
+      [
+        0.32,
+        3425000.0
+      ],
+      [
+        0.34,
+        3360000.0
+      ],
+      [
+        0.36000000000000004,
+        3660000.0
+      ],
+      [
+        0.38,
+        3820000.0
+      ],
+      [
+        0.4,
+        3815000.0
+      ],
+      [
+        0.42000000000000004,
+        4045000.0
+      ],
+      [
+        0.44,
+        4055000.0
+      ],
+      [
+        0.46,
+        4115000.0
+      ],
+      [
+        0.48000000000000004,
+        4340000.0
+      ],
+      [
+        0.5,
+        4610000.0
+      ],
+      [
+        0.52,
+        4790000.0
+      ],
+      [
+        0.54,
+        4975000.0
+      ],
+      [
+        0.56,
+        4990000.0
+      ],
+      [
+        0.5800000000000001,
+        5250000.0
+      ],
+      [
+        0.6,
+        5320000.0
+      ],
+      [
+        0.62,
+        5455000.0
+      ],
+      [
+        0.64,
+        5775000.0
+      ],
+      [
+        0.66,
+        6015000.0
+      ],
+      [
+        0.68,
+        6305000.0
+      ],
+      [
+        0.7000000000000001,
+        6645000.0
+      ],
+      [
+        0.7200000000000001,
+        6860000.0
+      ],
+      [
+        0.74,
+        7155000.0
+      ],
+      [
+        0.76,
+        7395000.0
+      ],
+      [
+        0.78,
+        7730000.0
+      ],
+      [
+        0.8,
+        8170000.0
+      ],
+      [
+        0.8200000000000001,
+        8465000.0
+      ],
+      [
+        0.8400000000000001,
+        8815000.0
+      ],
+      [
+        0.86,
+        9050000.0
+      ],
+      [
+        0.88,
+        10100000.0
+      ],
+      [
+        0.9,
+        11100000.0
+      ],
+      [
+        0.92,
+        12250000.0
+      ],
+      [
+        0.9400000000000001,
+        13350000.0
+      ],
+      [
+        0.9600000000000001,
+        14500000.0
+      ],
+      [
+        0.98,
+        18500000.0
+      ]
+    ]
+  },
+  "ai4i": {
+    "n_rows": 10000,
+    "positive_rate": 0.0339,
+    "val_pr_auc_by_strategy": {
+      "Logistic Regression (baseline, balanced)": 0.4675766039391286,
+      "Random Forest (balanced)": 0.8523694754651946,
+      "XGBoost (no imbalance handling)": 0.869301439295132,
+      "XGBoost (class weights)": 0.860405589394596,
+      "XGBoost (random oversampling)": 0.8710439941239715
+    },
+    "selected_model": "XGBoost (random oversampling)",
+    "cost_optimal_threshold": 0.49832621216773987,
+    "test": {
+      "n": 2000,
+      "positives": 68,
+      "threshold": 0.49832621216773987,
+      "precision": 0.5660377358490566,
+      "recall": 0.8823529411764706,
+      "f1": 0.6896551724137931,
+      "tp": 60,
+      "fp": 46,
+      "fn": 8,
+      "tn": 1886,
+      "cost": 630000.0,
+      "pr_auc": 0.8968810737866131,
+      "roc_auc": 0.9794483010595543,
+      "default_0_5": {
+        "n": 2000,
+        "positives": 68,
+        "threshold": 0.5,
+        "precision": 0.5714285714285714,
+        "recall": 0.8823529411764706,
+        "f1": 0.6936416184971098,
+        "tp": 60,
+        "fp": 45,
+        "fn": 8,
+        "tn": 1887,
+        "cost": 625000.0,
+        "pr_auc": 0.8968810737866131,
+        "roc_auc": 0.9794483010595543
+      }
+    },
+    "isolation_forest_unsupervised_test_pr_auc": 0.19890957094515396,
+    "leakage_demo_pr_auc_with_failure_mode_flags": 0.9774211320794413,
+    "test_cost_all_negative_baseline": 3400000.0
+  },
+  "cost": {
+    "reactive": {
+      "total": 5000000,
+      "per_engine": 50000.0,
+      "unplanned_failures": 100,
+      "avg_wasted_cycles": 0.0
+    },
+    "best_fixed_interval": 125,
+    "fixed": {
+      "total": 1125240.0,
+      "per_engine": 11252.4,
+      "unplanned_failures": 0,
+      "avg_wasted_cycles": 81.31
+    },
+    "best_trigger": 15,
+    "predictive": {
+      "total": 842800.0,
+      "per_engine": 8428.0,
+      "unplanned_failures": 0,
+      "avg_wasted_cycles": 10.7
+    },
+    "savings_vs_reactive_pct": 83.14399999999999,
+    "savings_vs_fixed_pct": 25.100423020866657,
+    "trigger_curve": [
+      [
+        5,
+        47484.4
+      ],
+      [
+        10,
+        10335.2
+      ],
+      [
+        15,
+        8428.0
+      ],
+      [
+        20,
+        8610.8
+      ],
+      [
+        25,
+        8792.0
+      ],
+      [
+        30,
+        8981.2
+      ],
+      [
+        35,
+        9153.6
+      ],
+      [
+        40,
+        9332.0
+      ],
+      [
+        45,
+        9540.0
+      ],
+      [
+        50,
+        9714.0
+      ],
+      [
+        55,
+        9904.4
+      ],
+      [
+        60,
+        10074.8
+      ],
+      [
+        65,
+        10254.0
+      ],
+      [
+        70,
+        10456.0
+      ],
+      [
+        75,
+        10677.2
+      ],
+      [
+        80,
+        10921.2
+      ],
+      [
+        85,
+        11206.4
+      ],
+      [
+        90,
+        11505.6
+      ],
+      [
+        95,
+        11762.0
+      ],
+      [
+        100,
+        12188.4
+      ]
+    ]
+  },
+  "sensor_importance": {
+    "cycle": 9.916298525798524,
+    "s4": 8.111849385749386,
+    "s2": 5.201324078624078,
+    "s15": 4.658123587223588,
+    "s9": 3.2023879606879606,
+    "s11": 3.0416771498771493,
+    "s3": 2.777623095823096,
+    "s14": 1.9607167076167076,
+    "s21": 1.1446886977886976,
+    "s7": 1.1158955773955774,
+    "s20": 0.8991722358722358,
+    "s17": 0.8368174447174448,
+    "s13": 0.7480850122850123,
+    "s8": 0.6668201474201473,
+    "s12": 0.6426572481572481
+  },
+  "environment": {
+    "python": "3.12.3",
+    "numpy": "2.4.4",
+    "pandas": "3.0.2",
+    "sklearn": "1.8.0",
+    "lightgbm": "4.7.0",
+    "xgboost": "3.4.1",
+    "torch": "2.14.0+cu130"
+  },
+  "runtime_seconds": 53.6
+}
